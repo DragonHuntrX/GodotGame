@@ -1,14 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://be00acjf68xy2"]
+[gd_scene load_steps=11 format=3 uid="uid://be00acjf68xy2"]
 
 [ext_resource type="Texture2D" uid="uid://bod3514a31ush" path="res://icon.svg" id="1_mmb0h"]
-[ext_resource type="Script" path="res://Icon.gd" id="2_dqca5"]
+[ext_resource type="Script" path="res://Scripts/Icon.gd" id="2_dqca5"]
+[ext_resource type="Texture2D" uid="uid://cg0gi6e5l6v5o" path="res://Assets/real_sun.png" id="3_esrt4"]
+[ext_resource type="Script" path="res://Scripts/rotate.gd" id="4_v5t8b"]
+[ext_resource type="Texture2D" uid="uid://bawfk0ny3xdr8" path="res://Assets/earth.png" id="5_ko0ek"]
+[ext_resource type="Script" path="res://Scripts/orbiter.gd" id="6_mbaos"]
+[ext_resource type="Texture2D" uid="uid://bvyq2f24a1ott" path="res://mars.png" id="7_failx"]
+[ext_resource type="Texture2D" uid="uid://ckmb1gu1kjxhl" path="res://saturn.png" id="7_ux8ng"]
+[ext_resource type="Texture2D" uid="uid://cmmjbwtyhi5dq" path="res://mercury.png" id="9_c1ert"]
+[ext_resource type="Texture2D" uid="uid://d12os5u6adown" path="res://jupiter.png" id="10_xol3u"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Icon" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(131, 141)
 texture = ExtResource("1_mmb0h")
 script = ExtResource("2_dqca5")
+rotation_speed = 0.5
 
 [node name="Icon4" type="Sprite2D" parent="Icon"]
 position = Vector2(-72, 75)
@@ -89,3 +99,113 @@ texture = ExtResource("1_mmb0h")
 position = Vector2(-71.1111, -79.6445)
 scale = Vector2(0.703125, 0.703125)
 texture = ExtResource("1_mmb0h")
+
+[node name="SunNode" type="Node2D" parent="."]
+position = Vector2(881, 560)
+
+[node name="Sun" type="Sprite2D" parent="SunNode"]
+scale = Vector2(0.315305, 0.315305)
+texture = ExtResource("3_esrt4")
+script = ExtResource("4_v5t8b")
+rotation_speed = 0.2
+
+[node name="EarthNode" type="Node2D" parent="SunNode"]
+position = Vector2(0, -200)
+scale = Vector2(0.11375, 0.11375)
+script = ExtResource("6_mbaos")
+attraction = 5.0
+start_vel = Vector2(125, 0)
+orbit_enabled = true
+
+[node name="Earth" type="Sprite2D" parent="SunNode/EarthNode"]
+texture = ExtResource("5_ko0ek")
+script = ExtResource("4_v5t8b")
+rotation_speed = 0.1
+
+[node name="Moon?" type="Sprite2D" parent="SunNode/EarthNode"]
+position = Vector2(0, -750)
+scale = Vector2(0.995878, 0.995878)
+texture = ExtResource("1_mmb0h")
+script = ExtResource("6_mbaos")
+attraction = 1000.0
+start_vel = Vector2(900, -50)
+orbit_enabled = true
+
+[node name="MarsNode" type="Node2D" parent="SunNode"]
+position = Vector2(0, 300)
+scale = Vector2(0.139563, 0.139563)
+script = ExtResource("6_mbaos")
+attraction = 10.0
+start_vel = Vector2(-135, 0)
+orbit_enabled = true
+
+[node name="Mars" type="Sprite2D" parent="SunNode/MarsNode"]
+texture = ExtResource("7_failx")
+script = ExtResource("4_v5t8b")
+rotation_speed = 0.05
+
+[node name="SaturnNode" type="Node2D" parent="SunNode"]
+position = Vector2(-850, 0)
+scale = Vector2(1.4779, 1.4779)
+script = ExtResource("6_mbaos")
+attraction = 125.0
+start_vel = Vector2(0, -325)
+orbit_enabled = true
+
+[node name="Saturn" type="Sprite2D" parent="SunNode/SaturnNode"]
+texture = ExtResource("7_ux8ng")
+script = ExtResource("4_v5t8b")
+rotation_speed = 0.01
+
+[node name="MercuryNode" type="Node2D" parent="SunNode"]
+position = Vector2(-125, 0)
+scale = Vector2(0.1, 0.1)
+script = ExtResource("6_mbaos")
+attraction = 10.0
+start_vel = Vector2(0, -210)
+orbit_enabled = true
+
+[node name="Mercury" type="Sprite2D" parent="SunNode/MercuryNode"]
+scale = Vector2(1, 1)
+texture = ExtResource("9_c1ert")
+script = ExtResource("4_v5t8b")
+rotation_speed = 0.025
+
+[node name="JupiterNode" type="Node2D" parent="SunNode"]
+position = Vector2(3000, 0)
+scale = Vector2(2.5, 2.5)
+script = ExtResource("6_mbaos")
+attraction = 130.0
+start_vel = Vector2(0, 125)
+orbit_enabled = true
+
+[node name="Jupiter" type="Sprite2D" parent="SunNode/JupiterNode"]
+scale = Vector2(2, 2)
+texture = ExtResource("10_xol3u")
+script = ExtResource("4_v5t8b")
+rotation_speed = -0.001
+
+[node name="Moon1 Node" type="Node2D" parent="SunNode/JupiterNode"]
+position = Vector2(-400, 400)
+scale = Vector2(0.25, 0.25)
+script = ExtResource("6_mbaos")
+attraction = 25.0
+start_vel = Vector2(-100, -100)
+orbit_enabled = true
+
+[node name="MoonSum" type="Sprite2D" parent="SunNode/JupiterNode/Moon1 Node"]
+texture = ExtResource("3_esrt4")
+script = ExtResource("4_v5t8b")
+rotation_speed = 0.5
+
+[node name="MoonSun\'s Moon Node" type="Node2D" parent="SunNode/JupiterNode/Moon1 Node"]
+position = Vector2(250, 250)
+script = ExtResource("6_mbaos")
+attraction = 1500.0
+start_vel = Vector2(-1100, 1100)
+orbit_enabled = true
+
+[node name="MoonSun\'s Moon" type="Sprite2D" parent="SunNode/JupiterNode/Moon1 Node/MoonSun\'s Moon Node"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_c1ert")
+script = ExtResource("4_v5t8b")
