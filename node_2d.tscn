@@ -166,7 +166,6 @@ start_vel = Vector2(0, -210)
 orbit_enabled = true
 
 [node name="Mercury" type="Sprite2D" parent="SunNode/MercuryNode"]
-scale = Vector2(1, 1)
 texture = ExtResource("9_c1ert")
 script = ExtResource("4_v5t8b")
 rotation_speed = 0.025
